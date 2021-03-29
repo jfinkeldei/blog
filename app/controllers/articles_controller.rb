@@ -15,6 +15,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.user = User.find(current_user.id)
 
     if @article.save
       redirect_to @article
@@ -24,7 +25,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
+      @article = Article.find(params[:id])
   end
 
   def update
@@ -39,13 +40,15 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
-    @article.destroy
+    if @article.user_id == current_user.id
+      @article.destroy
+    end
 
     redirect_to root_path
   end
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status)
+      params.require(:article).permit(:title, :body, :status, :user_id)
     end
 end
