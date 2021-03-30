@@ -1,30 +1,37 @@
-<h1>Articles</h1>
-
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <%= link_to article.title, article %>
-    </li>
-  <% end %>
-
-  <p>
-    <% if current_user %>
-      <%= link_to "New Article", new_article_path %>
-    <% end %>
-
-  </p>
-
-  <p>
-    <% if current_user %>
-      Logged in as <%= current_user.email %>.
-      <%= link_to "Log Out", logout_path %>
-    <% else %>
-      <%= link_to "Sign Up", signup_path %>
-      <%= link_to "Log In", login_path %>
-    <% end %>
-  </p>
-
+<div class="articles-container">
   <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, id: "flash_#{name}" %>
   <% end %>
-</ul>
+  
+  <ul class="list-unstyled articles-list">
+    <% @articles.each do |article| %>
+      <li class = article-container>
+        <h2><%= link_to article.title, article %></h2>
+        <br />
+        <p>
+          <%= article.body[0..350] + "..." %>
+          </p>
+      </li>
+      <hr />
+    <% end %>
+
+    <p>
+      <% if current_user %>
+        <%= link_to "New Article", new_article_path %>
+      <% end %>
+
+    </p>
+
+    <p>
+      <% if current_user %>
+        Logged in as <%= current_user.email %>.
+        <%= link_to "Log Out", logout_path %>
+      <% else %>
+        <%= link_to "Sign Up", signup_path %>
+        <%= link_to "Log In", login_path %>
+      <% end %>
+    </p>
+
+
+  </ul>
+</div>
