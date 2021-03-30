@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
-  before_action :authorize, only: [:edit, :update, :new, :create, :destroy]
+  before_action :is_owner, only: [:edit, :update, :destroy]
+  before_action :is_author, only: [:new, :create]
 
   def index
     @articles = Article.all
@@ -40,9 +41,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
-    if @article.user_id == current_user.id
-      @article.destroy
-    end
+    @article.destroy
 
     redirect_to root_path
   end
@@ -50,5 +49,22 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(:title, :body, :status, :user_id)
+    end
+
+  private
+    def is_owner
+      @article = Article.find(params[:id])
+      if !current_user.nil? && ( @article.user_id == current_user.id || current_user.is_admin )
+      else
+        redirect_to login_path, alert: "Not authorized"
+      end
+    end
+
+  private
+    def is_author
+      if !current_user.nil? && ( current_user.is_admin || current_user.is_author)
+      else
+        redirect_to login_path, alert: "Not authorized"
+      end
     end
 end
