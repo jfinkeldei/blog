@@ -79,7 +79,7 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      # command "sudo systemctl restart #{fetch(:user)}"
+      command "sudo systemctl restart #{fetch(:user)}"
     end
   end
 
