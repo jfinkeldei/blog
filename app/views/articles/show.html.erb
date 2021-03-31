@@ -1,7 +1,7 @@
 <div class="article">
   <h1><%= @article.title %></h1>
 
-  <p><%= @article.body%></p>
+  <p><%= sanitize @article.body %></p>
 
   <% if current_user%>
     <ul class="list-inline">
