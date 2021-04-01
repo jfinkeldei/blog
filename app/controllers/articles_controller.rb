@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_action :is_author, only: [:new, :create]
 
   def index
-    @articles = Article.all
+    @articles = Article.where(:status => "public")
   end
 
   def show

@@ -1,0 +1,29 @@
+<h1><%= current_user.email %></h1>
+
+<h3>Your articles</h3>
+
+
+  <table>
+    <td>
+      <tr>
+        <th>
+          Title
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+      <% @articles.each do |article| %>
+
+      <tr>
+        <td>
+          <%= link_to article.title, article %>
+        </td>
+        <td>
+          <%= article.status %>
+        </td>
+      </tr>
+
+      <% end %>
+    </td>
+  </table>

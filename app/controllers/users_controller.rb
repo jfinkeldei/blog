@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authorize, only: [:show]
+
   def new
     @user = User.new
   end
@@ -10,6 +12,11 @@ class UsersController < ApplicationController
     else
       render "new"
     end
+  end
+
+  def show
+    @user = User.find(current_user.id)
+    @articles = Article.where(:user_id => current_user.id)
   end
 
   private
