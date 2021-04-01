@@ -2,14 +2,14 @@
   <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, id: "flash_#{name}" %>
   <% end %>
-  
+
   <ul class="list-unstyled articles-list">
     <% @articles.each do |article| %>
       <li class = article-container>
         <h2><%= link_to article.title, article %></h2>
         <br />
         <p>
-          <%= article.body[0..350] + "..." %>
+          <%= article.body%>
           </p>
       </li>
       <hr />

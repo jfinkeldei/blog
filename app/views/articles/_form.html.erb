@@ -8,12 +8,24 @@
   </div>
 
   <div>
-    <%= form.label :body %><br>
+    <%= form.label :summary %><br>
     <%= form.text_area :body %>
     <% article.errors.full_messages_for(:body).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
+
+  <div>
+    <%= form.label :content %><br>
+    <%= form.rich_text_area :content %>
+    <% article.errors.full_messages_for(:content).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="trix-content">
+  <%= yield %>
+</div>
 
   <div>
     <%= form.label :status %><br>
